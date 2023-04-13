@@ -32,16 +32,6 @@ router.get("/instructor/:id", (req, res) => {
 		.catch((error) => res.json({ message: error }));
 });
 
-// delete  Instructor
-router.delete("/instructor/:id", (req, res) => {
-	const { id } = req.params;
-
-	instructorSchema
-		.deleteOne({ _id: id })
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
-});
-
 // update  Instructor
 router.put("/instructor/:id", (req, res) => {
 	const { id } = req.params;
@@ -52,5 +42,15 @@ router.put("/instructor/:id", (req, res) => {
 		.then((data) => res.json("Datos Actualizados correctamente"))
 		.catch((error) => res.json({ message: error }));
 });
+
+// delete  Instructor
+// router.delete("/instructor/:id", (req, res) => {
+// 	const { id } = req.params;
+
+// 	instructorSchema
+// 		.deleteOne({ _id: id })
+// 		.then((data) => res.json(data))
+// 		.catch((error) => res.json({ message: error }));
+// });
 
 module.exports = router;

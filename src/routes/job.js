@@ -30,16 +30,6 @@ router.get("/job/:id", (req, res) => {
 		.catch((error) => res.json({ message: error }));
 });
 
-// delete  job
-router.delete("/job/:id", (req, res) => {
-	const { id } = req.params;
-
-	jobSchema
-		.deleteOne({ _id: id })
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
-});
-
 // update  job
 router.put("/job/:id", (req, res) => {
 	const { id } = req.params;
@@ -47,6 +37,16 @@ router.put("/job/:id", (req, res) => {
 	jobSchema
 		.updateOne({ _id: id }, { $set: { ...req.body } })
 		.then((data) => res.json("Datos Actualizados correctamente"))
+		.catch((error) => res.json({ message: error }));
+});
+
+// delete  job
+router.delete("/job/:id", (req, res) => {
+	const { id } = req.params;
+
+	jobSchema
+		.deleteOne({ _id: id })
+		.then((data) => res.json(data))
 		.catch((error) => res.json({ message: error }));
 });
 
