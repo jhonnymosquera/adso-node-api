@@ -30,14 +30,14 @@ router.get("/day/:id", (req, res) => {
 });
 
 // delete a day
-router.delete("/day/:id", (req, res) => {
-	const { id } = req.params;
+// router.delete("/day/:id", (req, res) => {
+// 	const { id } = req.params;
 
-	daySchema
-		.deleteOne({ _id: id })
-		.then((data) => res.json("El dia se ha eliminado de manera exitosa"))
-		.catch((error) => res.json({ message: error }));
-});
+// 	daySchema
+// 		.deleteOne({ _id: id })
+// 		.then((data) => res.json("El dia se ha eliminado de manera exitosa"))
+// 		.catch((error) => res.json({ message: error }));
+// });
 
 // update a day
 router.put("/day/:id", (req, res) => {
