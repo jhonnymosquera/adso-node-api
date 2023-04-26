@@ -4,50 +4,72 @@ const jobSchema = require("../models/job");
 const router = express.Router();
 
 // creat job
-router.post("/job", (req, res) => {
-	const user = jobSchema(req.body);
-	user
-		.save()
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
+router.post("/job", async (req, res) => {
+	const { date, title, state, instructorId } = req.body;
+	const jobs = jobSchema({ date, title, state, instructorId });
+
+	try {
+		const data = await jobs.save();
+
+		res.send(data);
+	} catch (error) {
+		res.send(error.message);
+	}
 });
 
 // get all jobs
-router.get("/job", (req, res) => {
+router.get("/job", async (req, res) => {
 	jobSchema
 		.find()
 		.then((data) => res.json(data))
 		.catch((error) => res.json({ message: error }));
+
+	try {
+		const data = await jobSchema.find();
+
+		res.send(data);
+	} catch (error) {
+		res.send({ message: error });
+	}
 });
 
 // get  job
-router.get("/job/:id", (req, res) => {
+router.get("/job/:id", async (req, res) => {
 	const { id } = req.params;
 
-	jobSchema
-		.findById(id)
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
+	try {
+		const data = await jobSchema.findById(id);
+
+		res.send(data);
+	} catch (error) {
+		res.send({ message: error });
+	}
 });
 
 // update  job
-router.put("/job/:id", (req, res) => {
+router.put("/job/:id", async (req, res) => {
 	const { id } = req.params;
 
-	jobSchema
-		.updateOne({ _id: id }, { $set: { ...req.body } })
-		.then((data) => res.json("Datos Actualizados correctamente"))
-		.catch((error) => res.json({ message: error }));
+	try {
+		const data = jobSchema.updateOne({ _id: id }, { $set: { ...req.body } });
+
+		res.send("Datos Actualizados Correctamente");
+	} catch (error) {
+		res.send({ message: error });
+	}
 });
 
 // delete  job
-router.delete("/job/:id", (req, res) => {
+router.delete("/job/:id", async (req, res) => {
 	const { id } = req.params;
 
-	jobSchema
-		.deleteOne({ _id: id })
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
+	try {
+		const data = await jobSchema.deleteOne({ _id: id });
+
+		res.send(data);
+	} catch (error) {
+		res.send({ message: error });
+	}
 });
 
 module.exports = router;

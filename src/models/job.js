@@ -9,9 +9,9 @@ const jobSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	jobs: {
-		type: Array,
-		required: true,
+	title: {
+		type: String,
+		require: true,
 	},
 	state: {
 		type: Boolean,

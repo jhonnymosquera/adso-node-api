@@ -4,53 +4,76 @@ const instructorSchema = require("../models/instructor");
 const router = express.Router();
 
 // creat Instructor
-router.post("/instructor", (req, res) => {
-	const { day, date, state, instructorId } = req.body;
+router.post("/instructor", async (req, res) => {
+	const { day, date, state, name, transversal, jobs } = req.body;
 
-	const user = instructorSchema({ day, date, state, instructorId });
-	user
-		.save()
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
+	const instructor = instructorSchema({
+		day,
+		date,
+		state,
+		class: req.body.class,
+		transversal,
+		name,
+		jobs,
+	});
+
+	try {
+		const data = await instructor.save();
+
+		res.send(data);
+	} catch (error) {
+		res.json({ message: error });
+	}
 });
 
 // get all Instructors
-router.get("/instructor", (req, res) => {
-	instructorSchema
-		.find()
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
+router.get("/instructor", async (req, res) => {
+	try {
+		const data = await instructorSchema.find();
+		res.send(data);
+	} catch (error) {
+		res.json({ message: error });
+	}
 });
 
 // get  Instructor
-router.get("/instructor/:id", (req, res) => {
+router.get("/instructor/:id", async (req, res) => {
 	const { id } = req.params;
 
-	instructorSchema
-		.findById(id)
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
+	try {
+		const data = await instructorSchema.findById(id);
+		res.send(data);
+	} catch (error) {
+		res.json({ message: error });
+	}
 });
 
 // update  Instructor
-router.put("/instructor/:id", (req, res) => {
+router.put("/instructor/:id", async (req, res) => {
 	const { id } = req.params;
 	const { name, email, avatar, transversal } = req.body;
+	const dataUpdate = { name, email, avatar, transversal, class: req.body.class };
 
-	instructorSchema
-		.updateOne({ _id: id }, { $set: { name, email, avatar, transversal, class: req.body.class } })
-		.then((data) => res.json("Datos Actualizados correctamente"))
-		.catch((error) => res.json({ message: error }));
+	try {
+		const data = await instructorSchema.updateOne({ _id: id }, { $set: dataUpdate });
+
+		res.send("Instructor Actualizado correctamente");
+	} catch (error) {
+		res.send({ message: error });
+	}
 });
 
-// delete  Instructor
-// router.delete("/instructor/:id", (req, res) => {
+// delete Instructor;
+// router.delete("/instructor/:id", async (req, res) => {
 // 	const { id } = req.params;
 
-// 	instructorSchema
-// 		.deleteOne({ _id: id })
-// 		.then((data) => res.json(data))
-// 		.catch((error) => res.json({ message: error }));
+// 	try {
+// 		const data = await instructorSchema.deleteOne({ _id: id });
+
+// 		res.send(data);
+// 	} catch (error) {
+// 		res.send({ message: error });
+// 	}
 // });
 
 module.exports = router;

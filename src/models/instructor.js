@@ -21,6 +21,10 @@ const instructorSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	jobs: {
+		type: Array,
+		required: true,
+	},
 });
 
 module.exports = mongoose.model("Instructor", instructorSchema);
