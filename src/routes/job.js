@@ -19,11 +19,6 @@ router.post("/job", async (req, res) => {
 
 // get all jobs
 router.get("/job", async (req, res) => {
-	jobSchema
-		.find()
-		.then((data) => res.json(data))
-		.catch((error) => res.json({ message: error }));
-
 	try {
 		const data = await jobSchema.find();
 
