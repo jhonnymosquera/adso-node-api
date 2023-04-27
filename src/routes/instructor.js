@@ -4,8 +4,8 @@ const instructorSchema = require("../models/instructor");
 const router = express.Router();
 
 // creat Instructor
-router.post("/instructor", async (req, res) => {
-	const { day, date, state, name, transversal, jobs } = req.body;
+router.post("/adso/instructor", async (req, res) => {
+	const { day, date, state, name, transversal } = req.body;
 
 	const instructor = instructorSchema({
 		day,
@@ -14,7 +14,6 @@ router.post("/instructor", async (req, res) => {
 		class: req.body.class,
 		transversal,
 		name,
-		jobs,
 	});
 
 	try {
@@ -27,7 +26,7 @@ router.post("/instructor", async (req, res) => {
 });
 
 // get all Instructors
-router.get("/instructor", async (req, res) => {
+router.get("/adso/instructor", async (req, res) => {
 	try {
 		const data = await instructorSchema.find();
 		res.send(data);
@@ -37,7 +36,7 @@ router.get("/instructor", async (req, res) => {
 });
 
 // get  Instructor
-router.get("/instructor/:id", async (req, res) => {
+router.get("/adso/instructor/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
@@ -49,7 +48,7 @@ router.get("/instructor/:id", async (req, res) => {
 });
 
 // update  Instructor
-router.put("/instructor/:id", async (req, res) => {
+router.put("/adso/instructor/:id", async (req, res) => {
 	const { id } = req.params;
 	const { name, email, avatar, transversal } = req.body;
 	const dataUpdate = { name, email, avatar, transversal, class: req.body.class };
@@ -64,7 +63,7 @@ router.put("/instructor/:id", async (req, res) => {
 });
 
 // delete Instructor;
-// router.delete("/instructor/:id", async (req, res) => {
+// router.delete("/adso/instructor/:id", async (req, res) => {
 // 	const { id } = req.params;
 
 // 	try {

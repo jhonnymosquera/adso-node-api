@@ -13,6 +13,10 @@ const jobSchema = mongoose.Schema({
 		type: String,
 		require: true,
 	},
+	tasks: {
+		type: Array,
+		require: false,
+	},
 	state: {
 		type: Boolean,
 		required: true,

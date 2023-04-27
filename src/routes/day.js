@@ -3,7 +3,7 @@ const daySchema = require("../models/day");
 const router = express.Router();
 
 // create day
-router.post("/day", async (req, res) => {
+router.post("/adso/day", async (req, res) => {
 	try {
 		const data = await daySchema(req.body).save();
 
@@ -14,7 +14,7 @@ router.post("/day", async (req, res) => {
 });
 
 // get all days
-router.get("/day", async (req, res) => {
+router.get("/adso/day", async (req, res) => {
 	try {
 		const data = await daySchema.find();
 
@@ -25,7 +25,7 @@ router.get("/day", async (req, res) => {
 });
 
 // get a day
-router.get("/day/:id", async (req, res) => {
+router.get("/adso/day/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
@@ -38,7 +38,7 @@ router.get("/day/:id", async (req, res) => {
 });
 
 // update a day
-router.put("/day/:id", async (req, res) => {
+router.put("/adso/day/:id", async (req, res) => {
 	const { id } = req.params;
 	const { day, date, state, instructorId } = req.body;
 
@@ -52,20 +52,15 @@ router.put("/day/:id", async (req, res) => {
 });
 
 // delete a day
-router.delete("/day/:id", async (req, res) => {
-	const { id } = req.params;
+// router.delete("/adso/day/:id", async (req, res) => {
+// 	const { id } = req.params;
 
-	daySchema
-		.deleteOne({ _id: id })
-		.then((data) => res.json("El dia se ha eliminado de manera exitosa"))
-		.catch((error) => res.json({ message: error }));
+// 	try {
+// 		const data = await daySchema.deleteOne({ _id: id });
 
-	try {
-		const data = await daySchema.deleteOne({ _id: id });
-
-		res.send(data);
-	} catch (error) {
-		res.send({ message: error });
-	}
-});
+// 		res.send(data);
+// 	} catch (error) {
+// 		res.send({ message: error });
+// 	}
+// });
 module.exports = router;

@@ -4,7 +4,7 @@ const taskSchema = require("../models/task");
 const router = express.Router();
 
 // creat task
-router.post("/task", async (req, res) => {
+router.post("/adso/task", async (req, res) => {
 	const task = taskSchema(req.body);
 
 	try {
@@ -17,7 +17,7 @@ router.post("/task", async (req, res) => {
 });
 
 // get all tasks
-router.get("/task", async (req, res) => {
+router.get("/adso/task", async (req, res) => {
 	try {
 		const data = await taskSchema.find();
 
@@ -28,7 +28,7 @@ router.get("/task", async (req, res) => {
 });
 
 // get  task
-router.get("/task/:id", async (req, res) => {
+router.get("/adso/task/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
@@ -41,7 +41,7 @@ router.get("/task/:id", async (req, res) => {
 });
 
 // update  task
-router.put("/task/:id", async (req, res) => {
+router.put("/adso/task/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
@@ -54,7 +54,7 @@ router.put("/task/:id", async (req, res) => {
 });
 
 // delete  task
-router.delete("/task/:id", async (req, res) => {
+router.delete("/adso/task/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {

@@ -5,6 +5,7 @@ const instructor = require("./routes/instructor");
 const day = require("./routes/day");
 const job = require("./routes/job");
 const task = require("./routes/task");
+const adso = require("./routes/adso");
 
 const cors = require("cors");
 // settings
@@ -14,7 +15,7 @@ const port = process.env.PORT || 9000;
 // middlewares
 app.use(cors());
 app.use(express.json());
-app.use("/api", instructor, day, job, task);
+app.use("/api", instructor, day, job, task, adso);
 
 // routes
 app.get("/", (req, res) => {

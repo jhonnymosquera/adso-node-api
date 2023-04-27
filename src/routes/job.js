@@ -4,7 +4,7 @@ const jobSchema = require("../models/job");
 const router = express.Router();
 
 // creat job
-router.post("/job", async (req, res) => {
+router.post("/adso/job", async (req, res) => {
 	const { date, title, state, instructorId } = req.body;
 	const jobs = jobSchema({ date, title, state, instructorId });
 
@@ -18,7 +18,7 @@ router.post("/job", async (req, res) => {
 });
 
 // get all jobs
-router.get("/job", async (req, res) => {
+router.get("/adso/job", async (req, res) => {
 	try {
 		const data = await jobSchema.find();
 
@@ -29,7 +29,7 @@ router.get("/job", async (req, res) => {
 });
 
 // get  job
-router.get("/job/:id", async (req, res) => {
+router.get("/adso/job/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
@@ -42,20 +42,20 @@ router.get("/job/:id", async (req, res) => {
 });
 
 // update  job
-router.put("/job/:id", async (req, res) => {
+router.put("/adso/job/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
-		const data = jobSchema.updateOne({ _id: id }, { $set: { ...req.body } });
+		const data = await jobSchema.updateOne({ _id: id }, { $set: { ...req.body } });
 
-		res.send("Datos Actualizados Correctamente");
+		res.send(data);
 	} catch (error) {
 		res.send({ message: error });
 	}
 });
 
 // delete  job
-router.delete("/job/:id", async (req, res) => {
+router.delete("/adso/job/:id", async (req, res) => {
 	const { id } = req.params;
 
 	try {
