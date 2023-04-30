@@ -1,69 +1,22 @@
-const express = require("express");
-const taskSchema = require("../models/task");
+const { Router } = require('express');
+const { createTask, getAllTasks, getTaskById, updateTask } = require('../controllers/task');
+const { deleteJob } = require('../controllers/job');
 
-const router = express.Router();
+const router = Router();
 
 // creat task
-router.post("/adso/task", async (req, res) => {
-	const task = taskSchema(req.body);
-
-	try {
-		const data = await task.save();
-
-		res.send(data);
-	} catch (error) {
-		res.send({ message: error });
-	}
-});
+router.post('/adso/task', createTask);
 
 // get all tasks
-router.get("/adso/task", async (req, res) => {
-	try {
-		const data = await taskSchema.find();
-
-		res.send(data);
-	} catch (error) {
-		res.send({ message: error });
-	}
-});
+router.get('/adso/task', getAllTasks);
 
 // get  task
-router.get("/adso/task/:id", async (req, res) => {
-	const { id } = req.params;
-
-	try {
-		const data = await taskSchema.findById(id);
-
-		res.send(data);
-	} catch (error) {
-		res.send({ message: error });
-	}
-});
+router.get('/adso/task/:id', getTaskById);
 
 // update  task
-router.put("/adso/task/:id", async (req, res) => {
-	const { id } = req.params;
-
-	try {
-		const data = await taskSchema.updateOne({ _id: id }, { $set: { ...req.body } });
-
-		res.send(data);
-	} catch (error) {
-		res.send({ message: error });
-	}
-});
+router.put('/adso/task/:id', updateTask);
 
 // delete  task
-router.delete("/adso/task/:id", async (req, res) => {
-	const { id } = req.params;
-
-	try {
-		const data = await taskSchema.deleteOne({ _id: id });
-
-		res.send(data);
-	} catch (error) {
-		res.send({ message: error });
-	}
-});
+router.delete('/adso/task/:id', deleteJob);
 
 module.exports = router;

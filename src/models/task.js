@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const taskSchema = mongoose.Schema({
 	jobId: {
@@ -11,4 +11,4 @@ const taskSchema = mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model("Taks", taskSchema);
+module.exports = mongoose.model('Taks', taskSchema);

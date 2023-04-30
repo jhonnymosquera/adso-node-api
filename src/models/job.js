@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const jobSchema = mongoose.Schema({
 	instructorId: {
@@ -23,4 +23,4 @@ const jobSchema = mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model("Jobs", jobSchema);
+module.exports = mongoose.model('Jobs', jobSchema);

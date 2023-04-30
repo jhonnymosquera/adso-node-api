@@ -1,13 +1,10 @@
-const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config();
-const instructor = require("./routes/instructor");
-const day = require("./routes/day");
-const job = require("./routes/job");
-const task = require("./routes/task");
-const adso = require("./routes/adso");
+const express = require('express');
+require('dotenv').config();
 
-const cors = require("cors");
+const cors = require('cors');
+const mongodbConnection = require('./config/mongodb');
+const routes = require('./routes');
+
 // settings
 const app = express();
 const port = process.env.PORT || 9000;
@@ -15,18 +12,15 @@ const port = process.env.PORT || 9000;
 // middlewares
 app.use(cors());
 app.use(express.json());
-app.use("/api", instructor, day, job, task, adso);
+app.use('/api', routes);
 
 // routes
-app.get("/", (req, res) => {
-	res.send("Welcome to my API");
+app.get('/', (req, res) => {
+	res.send('Welcome to my API');
 });
 
 // mongodb connection
-mongoose
-	.connect(process.env.MONGODB_URI)
-	.then(() => console.log("Servidor conectado correctamente en: MongoDB Atlas"))
-	.catch((error) => console.error(error));
+mongodbConnection();
 
 // server listening
-app.listen(port, () => console.log("Servidor Corriendo en el Puesto: ", port));
+app.listen(port, () => console.log('Servidor Corriendo en el Puerto: ', port));

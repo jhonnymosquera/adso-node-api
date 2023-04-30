@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const daySchema = mongoose.Schema({
 	day: {
@@ -19,4 +19,4 @@ const daySchema = mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model("Days", daySchema);
+module.exports = mongoose.model('Days', daySchema);
