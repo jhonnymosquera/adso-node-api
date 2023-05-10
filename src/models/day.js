@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const daySchema = mongoose.Schema({
+	_id: {
+		type: String,
+		require: true,
+	},
 	day: {
 		type: String,
 		required: true,

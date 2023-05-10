@@ -1,8 +1,15 @@
 const taskSchema = require('../models/task');
+const { v4: uuidv4 } = require('uuid');
 
 // creat task
 const createTask = async (req, res) => {
-	const task = taskSchema(req.body);
+	const { jobId, text } = req.body;
+
+	const task = taskSchema({
+		_id: uuidv4(),
+		jobId,
+		text,
+	});
 
 	try {
 		const data = await task.save();

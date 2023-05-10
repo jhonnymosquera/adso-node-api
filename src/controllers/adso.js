@@ -14,9 +14,7 @@ const adso = async (req, res) => {
 		// Guardando las tareas(tasks) en los Trabajos(jobs)
 		jobs.forEach((job) => {
 			tasks.forEach((task) => {
-				if (task.jobId == job._id) {
-					job.tasks.push(task);
-				}
+				if (task.jobId == job._id) job.tasks.push(task);
 			});
 
 			return job;
@@ -25,9 +23,7 @@ const adso = async (req, res) => {
 		// Guardando los trabajos(jobs) en los Instructores
 		instructors.forEach((instructor) => {
 			jobs.forEach((job) => {
-				if (job.instructorId == instructor._id) {
-					instructor.jobs.push(job);
-				}
+				if (job.instructorId == instructor._id) instructor.jobs.push(job);
 			});
 
 			return instructor;

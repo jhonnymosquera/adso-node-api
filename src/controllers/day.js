@@ -1,9 +1,20 @@
 const daySchema = require('../models/day');
+const { v4: uuidv4 } = require('uuid');
 
 // create day
 const createDay = async (req, res) => {
+	const { day, date, state, instructorId } = req.body;
+
+	const days = daySchema({
+		_id: uuidv4(),
+		day,
+		date,
+		state,
+		instructorId,
+	});
+
 	try {
-		const data = await daySchema(req.body).save();
+		const data = await days.save();
 
 		res.send('El dia se ha guardado de manera exitosa');
 	} catch (error) {

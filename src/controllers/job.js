@@ -1,9 +1,17 @@
 const jobSchema = require('../models/job');
+const { v4: uuidv4 } = require('uuid');
 
 // creat job
 const createJob = async (req, res) => {
 	const { date, title, state, instructorId } = req.body;
-	const jobs = jobSchema({ date, title, state, instructorId });
+
+	const jobs = jobSchema({
+		_id: uuidv4(),
+		date,
+		title,
+		state,
+		instructorId,
+	});
 
 	try {
 		const data = await jobs.save();

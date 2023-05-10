@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const instructorSchema = mongoose.Schema({
+	_id: {
+		type: String,
+		require: true,
+	},
 	name: {
 		type: String,
 		required: true,
@@ -23,7 +27,7 @@ const instructorSchema = mongoose.Schema({
 	},
 	jobs: {
 		type: Array,
-		required: true,
+		required: false,
 	},
 });
 
