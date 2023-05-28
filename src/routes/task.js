@@ -5,18 +5,18 @@ const { deleteJob } = require('../controllers/job');
 const router = Router();
 
 // creat task
-router.post('/adso/task', createTask);
+router.post('/', createTask);
 
 // get all tasks
-router.get('/adso/task', getAllTasks);
+router.get('/', getAllTasks);
 
 // get  task
-router.get('/adso/task/:id', getTaskById);
+router.get('/:id', getTaskById);
 
 // update  task
-router.put('/adso/task/:id', updateTask);
+router.put('/:id', updateTask);
 
 // delete  task
-router.delete('/adso/task/:id', deleteJob);
+router.delete('/:id', deleteJob);
 
 module.exports = router;

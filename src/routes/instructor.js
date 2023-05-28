@@ -4,18 +4,18 @@ const { createInstructor, getAllInstructors, getInstructorById, updateInstructor
 const router = Router();
 
 // creat Instructor
-router.post('/adso/instructor', createInstructor);
+router.post('/', createInstructor);
 
 // get all Instructors
-router.get('/adso/instructor', getAllInstructors);
+router.get('/', getAllInstructors);
 
 // get  Instructor
-router.get('/adso/instructor/:id', getInstructorById);
+router.get('/:id', getInstructorById);
 
 // update  Instructor
-router.put('/adso/instructor/:id', updateInstructor);
+router.put('/:id', updateInstructor);
 
 // delete Instructor;
-router.delete('/adso/instructor/:id', updateInstructor);
+router.delete('/:id', updateInstructor);
 
 module.exports = router;

@@ -3,6 +3,6 @@ const { adso } = require('../controllers/adso');
 
 const router = Router();
 
-router.get('/adso', adso);
+router.get('/', adso);
 
 module.exports = router;

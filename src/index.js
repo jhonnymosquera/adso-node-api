@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 
+const c = require('colors');
 const cors = require('cors');
 const mongodbConnection = require('./config/mongodb');
 const routes = require('./routes');
@@ -23,4 +24,4 @@ app.get('/', (req, res) => {
 mongodbConnection();
 
 // server listening
-app.listen(port, () => console.log('Servidor Corriendo en el Puerto: ', port));
+app.listen(port, () => console.log(`Servidor Corriendo en el Puerto: ${port}`.bgYellow));

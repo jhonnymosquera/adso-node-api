@@ -5,9 +5,9 @@ const mongodbConnection = () => {
 
 	mongoose.connect(DB_URI, (err, res) => {
 		if (!err) {
-			console.log('***CONEXION CORRECTA A LA BASE DE DATOS***');
+			console.log('***CONEXION CORRECTA A LA BASE DE DATOS***'.bgCyan);
 		} else {
-			console.log('***ERROR DE CONEXION***');
+			console.log('***ERROR DE CONEXION***'.bgRed);
 		}
 	});
 };

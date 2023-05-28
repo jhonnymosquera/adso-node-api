@@ -4,18 +4,18 @@ const { createJob, getAllJobs, getJobById, updateJob, deleteJob } = require('../
 const router = Router();
 
 // creat job
-router.post('/adso/job', createJob);
+router.post('/', createJob);
 
 // get all jobs
-router.get('/adso/job', getAllJobs);
+router.get('/', getAllJobs);
 
 // get  job
-router.get('/adso/job/:id', getJobById);
+router.get('/:id', getJobById);
 
 // update  job
-router.put('/adso/job/:id', updateJob);
+router.put('/:id', updateJob);
 
 // delete  job
-router.delete('/adso/job/:id', deleteJob);
+router.delete('/:id', deleteJob);
 
 module.exports = router;

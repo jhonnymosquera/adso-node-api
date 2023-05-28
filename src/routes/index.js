@@ -1,11 +1,18 @@
-const instructor = require('./instructor');
-const day = require('./day');
-const job = require('./job');
-const task = require('./task');
-const adso = require('./adso');
+const { Router } = require('express');
+const fs = require('fs');
+const router = Router();
+const PATH_ROUTES = __dirname;
 
-const routes = [day, instructor, job, task, adso];
+const list_files = fs.readdirSync(PATH_ROUTES);
 
-routes.forEach((rute) => rute);
+list_files.filter((file) => {
+	const nameFile = file.split('.').shift();
 
-module.exports = routes;
+	if (nameFile !== 'index' && nameFile !== 'adso') {
+		router.use(`/adso/${nameFile}`, require(`./${file}`));
+	} else if (nameFile === 'adso') {
+		router.use(`/${nameFile}`, require(`./${file}`));
+	}
+});
+
+module.exports = router;

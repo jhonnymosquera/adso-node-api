@@ -3,18 +3,18 @@ const { createDay, getAllDays, getDayById, updateDay, deleteDay } = require('../
 const router = Router();
 
 // Create dat
-router.post('/adso/day', createDay);
+router.post('/', createDay);
 
 // Get all days
-router.get('/adso/day', getAllDays);
+router.get('/', getAllDays);
 
 // Get day by id
-router.get('/adso/day/:id', getDayById);
+router.get('/:id', getDayById);
 
 // Update day
-router.put('/adso/day/:id', updateDay);
+router.put('/:id', updateDay);
 
 // Delete day
-router.delete('/adso/day/:id', deleteDay);
+router.delete('/:id', deleteDay);
 
 module.exports = router;
