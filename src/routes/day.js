@@ -1,9 +1,10 @@
 const { Router } = require('express');
 const { createDay, getAllDays, getDayById, updateDay, deleteDay } = require('../controllers/day');
+const { validatorCreateItems } = require('../validators/dayValidator');
 const router = Router();
 
 // Create dat
-router.post('/', createDay);
+router.post('/', validatorCreateItems, createDay);
 
 // Get all days
 router.get('/', getAllDays);

@@ -1,29 +1,17 @@
-const express = require('express');
 const instructorSchema = require('../models/instructor');
 const { v4: uuidv4 } = require('uuid');
-
-const router = express.Router();
+const { matchedData } = require('express-validator');
+const { handleHttpError } = require('../utils/handleError');
 
 // creat Instructor
 const createInstructor = async (req, res) => {
-	const { state, name, transversal, avatar, email } = req.body;
-
-	const instructor = instructorSchema({
-		_id: uuidv4(),
-		name,
-		state,
-		class: req.body.class,
-		transversal,
-		avatar,
-		email,
-	});
-
 	try {
-		const data = await instructor.save();
+		const body = matchedData(req);
+		const data = await instructorSchema.create({ ...body, _id: uuidv4() });
 
-		res.send(data);
+		res.send('Instructor creado de manera exitosa');
 	} catch (error) {
-		res.json({ message: error });
+		handleHttpError(res, 'ERROR_CREATE_INSTRUCTOR');
 	}
 };
 
@@ -31,9 +19,10 @@ const createInstructor = async (req, res) => {
 const getAllInstructors = async (req, res) => {
 	try {
 		const data = await instructorSchema.find();
+
 		res.send(data);
 	} catch (error) {
-		res.json({ message: error });
+		handleHttpError(res, 'ERROR_GET_ALL_INSTRUCTOR');
 	}
 };
 
@@ -43,30 +32,32 @@ const getInstructorById = async (req, res) => {
 
 	try {
 		const data = await instructorSchema.findById(id);
+
 		res.send(data);
 	} catch (error) {
-		res.json({ message: error });
+		handleHttpError(res, 'ERROR_GET_INSTRUCTOR_BY_ID');
 	}
 };
 
 // update  Instructor
 const updateInstructor = async (req, res) => {
-	const { id } = req.params;
-	const { name, email, avatar, transversal } = req.body;
-	const dataUpdate = {
-		name,
-		email,
-		avatar,
-		transversal,
-		class: req.body.class,
-	};
-
 	try {
+		const { id } = req.params;
+		const { name, email, avatar, transversal } = req.body;
+
+		const dataUpdate = {
+			name,
+			email,
+			avatar,
+			transversal,
+			class: req.body.class,
+		};
+
 		const data = await instructorSchema.updateOne({ _id: id }, { $set: dataUpdate });
 
 		res.send(data);
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_UPDATE_INSTRUCTOR');
 	}
 };
 
@@ -79,7 +70,7 @@ const deleteInstructor = async (req, res) => {
 
 		res.send(data);
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_UPDATE_INSTRUCTOR');
 	}
 };
 

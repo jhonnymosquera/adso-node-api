@@ -1,10 +1,11 @@
 const { Router } = require('express');
 const { createInstructor, getAllInstructors, getInstructorById, updateInstructor } = require('../controllers/instructor');
+const { validatorCreateItems, validatorUpdateItems } = require('../validators/instructorValidator');
 
 const router = Router();
 
 // creat Instructor
-router.post('/', createInstructor);
+router.post('/', validatorCreateItems, createInstructor);
 
 // get all Instructors
 router.get('/', getAllInstructors);

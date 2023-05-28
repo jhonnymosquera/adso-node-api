@@ -1,10 +1,11 @@
 const { Router } = require('express');
 const { createJob, getAllJobs, getJobById, updateJob, deleteJob } = require('../controllers/job');
+const { validatorCreateItems } = require('../validators/jobValidator');
 
 const router = Router();
 
 // creat job
-router.post('/', createJob);
+router.post('/', validatorCreateItems, createJob);
 
 // get all jobs
 router.get('/', getAllJobs);

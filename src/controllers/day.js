@@ -1,24 +1,18 @@
+const { body, matchedData } = require('express-validator');
 const daySchema = require('../models/day');
 const { v4: uuidv4 } = require('uuid');
+const { handleHttpError } = require('../utils/handleError');
 
 // create day
 const createDay = async (req, res) => {
-	const { day, date, state, instructorId } = req.body;
-
-	const days = daySchema({
-		_id: uuidv4(),
-		day,
-		date,
-		state,
-		instructorId,
-	});
-
 	try {
-		const data = await days.save();
+		const body = matchedData(req);
+
+		const data = await daySchema.create({ ...body, _id: uuidv4() });
 
 		res.send('El dia se ha guardado de manera exitosa');
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_CREATE_DAY');
 	}
 };
 
@@ -29,7 +23,7 @@ const getAllDays = async (req, res) => {
 
 		res.send(data);
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_GET_ALL_DAY');
 	}
 };
 
@@ -42,7 +36,7 @@ const getDayById = async (req, res) => {
 
 		res.send(data);
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_GET_DAY_BY_ID');
 	}
 };
 
@@ -56,7 +50,7 @@ const updateDay = async (req, res) => {
 
 		res.send(data);
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_UPDATE_DAY');
 	}
 };
 
@@ -69,7 +63,7 @@ const deleteDay = async (req, res) => {
 
 		res.send(data);
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_DELETE_DAY');
 	}
 };
 
