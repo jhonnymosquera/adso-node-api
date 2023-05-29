@@ -1,4 +1,4 @@
-const { matchedData } = require('express-validator');
+const { matchedData, body } = require('express-validator');
 const taskSchema = require('../models/task');
 const { v4: uuidv4 } = require('uuid');
 const { handleHttpError } = require('../utils/handleError');
@@ -7,9 +7,9 @@ const { handleHttpError } = require('../utils/handleError');
 const createTask = async (req, res) => {
 	try {
 		const body = matchedData(req);
-		const data = await taskSchema.create({ ...body, _id: uuidv4() });
+		const data = await taskSchema.create({ _id: uuidv4(), ...body });
 
-		res.send('Tarea creada de manera exitosa');
+		res.send({ message: 'Tarea creada de manera exitosa' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_CREATE_TASK');
 	}
@@ -41,13 +41,11 @@ const getTaskById = async (req, res) => {
 // update  task
 const updateTask = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { text, jobId } = req.body;
-		const dataUpdate = { text, jobId };
+		const { id, ...body } = matchedData(req);
 
-		const data = await taskSchema.updateOne({ _id: id }, { $set: dataUpdate });
+		const data = await taskSchema.findByIdAndUpdate(id, body);
 
-		res.send(data);
+		res.send({ message: 'Tarea edidata de manera exitosa' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_UPDATE_TASK');
 	}
@@ -56,10 +54,10 @@ const updateTask = async (req, res) => {
 // delete  task
 const deleteTask = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const data = await taskSchema.deleteOne({ _id: id });
+		const { id } = matchedData(req);
+		const data = await taskSchema.findByIdAndDelete(id);
 
-		res.send(data);
+		res.send({ message: 'Tarea eliminada de manera exitosa' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_DELETE_TASK');
 	}

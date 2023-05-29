@@ -1,4 +1,4 @@
-const { body, matchedData } = require('express-validator');
+const { matchedData } = require('express-validator');
 const daySchema = require('../models/day');
 const { v4: uuidv4 } = require('uuid');
 const { handleHttpError } = require('../utils/handleError');
@@ -8,9 +8,9 @@ const createDay = async (req, res) => {
 	try {
 		const body = matchedData(req);
 
-		const data = await daySchema.create({ ...body, _id: uuidv4() });
+		const data = await daySchema.create({ _id: uuidv4(), ...body });
 
-		res.send('El dia se ha guardado de manera exitosa');
+		res.send({ message: 'El dia se ha guardado de manera exitosa' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_CREATE_DAY');
 	}
@@ -29,9 +29,8 @@ const getAllDays = async (req, res) => {
 
 // get a day
 const getDayById = async (req, res) => {
-	const { id } = req.params;
-
 	try {
+		const { id } = matchedData(req);
 		const data = await daySchema.findById(id);
 
 		res.send(data);
@@ -42,13 +41,12 @@ const getDayById = async (req, res) => {
 
 // update a day
 const updateDay = async (req, res) => {
-	const { id } = req.params;
-	const { day, date, state, instructorId } = req.body;
-
 	try {
-		const data = await daySchema.updateOne({ _id: id }, { $set: { day, date, state, instructorId } });
+		const { id, ...body } = matchedData(req);
 
-		res.send(data);
+		const data = await daySchema.findByIdAndUpdate(id, body);
+
+		res.send({ message: 'Dia actualizado correctamente' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_UPDATE_DAY');
 	}
@@ -56,12 +54,12 @@ const updateDay = async (req, res) => {
 
 // delete a day
 const deleteDay = async (req, res) => {
-	const { id } = req.params;
-
 	try {
-		const data = await daySchema.deleteOne({ _id: id });
+		const { id } = matchedData(req);
 
-		res.send(data);
+		const data = await daySchema.findByIdAndDelete(id);
+
+		res.send({ message: 'Dia eliminado correctamente' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_DELETE_DAY');
 	}

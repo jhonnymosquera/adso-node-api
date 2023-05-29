@@ -7,9 +7,9 @@ const { handleHttpError } = require('../utils/handleError');
 const createJob = async (req, res) => {
 	try {
 		const body = matchedData(req);
-		const data = await jobSchema.create({ ...body, _id: uuidv4() });
+		const data = await jobSchema.create({ _id: uuidv4(), ...body });
 
-		res.send('Trabajo registrado de manera exitosa');
+		res.send({ message: "'Trabajo registrado de manera exitosa'" });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_CREATE_JOB');
 	}
@@ -29,7 +29,7 @@ const getAllJobs = async (req, res) => {
 // get  job
 const getJobById = async (req, res) => {
 	try {
-		const { id } = req.params;
+		const { id } = matchedData(req);
 
 		const data = await jobSchema.findById(id);
 
@@ -42,13 +42,11 @@ const getJobById = async (req, res) => {
 // update  job
 const updateJob = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { instructorId, date, title, state } = req.body;
-		const dataUpdate = { instructorId, date, title, state };
+		const { id, ...body } = matchedData(req);
 
-		const data = await jobSchema.updateOne({ _id: id }, { $set: dataUpdate });
+		const data = await jobSchema.findByIdAndUpdate(id, body);
 
-		res.send(data);
+		res.send({ message: 'Trabajo editado de manera exitosa' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_UPDATE_JOB');
 	}
@@ -57,10 +55,10 @@ const updateJob = async (req, res) => {
 // delete  job
 const deleteJob = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const data = await jobSchema.deleteOne({ _id: id });
+		const { id } = matchedData(req);
+		const data = await jobSchema.findByIdAndDelete(id);
 
-		res.send(data);
+		res.send({ message: 'Trabajo eliminado de manera exitosa' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_DELETE_JOB');
 	}

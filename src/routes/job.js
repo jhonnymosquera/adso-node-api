@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { createJob, getAllJobs, getJobById, updateJob, deleteJob } = require('../controllers/job');
-const { validatorCreateItems } = require('../validators/jobValidator');
+const { validatorCreateItems, validatorIdItem, validatorUpdateItems } = require('../validators/jobValidator');
 
 const router = Router();
 
@@ -11,12 +11,12 @@ router.post('/', validatorCreateItems, createJob);
 router.get('/', getAllJobs);
 
 // get  job
-router.get('/:id', getJobById);
+router.get('/:id', validatorIdItem, getJobById);
 
 // update  job
-router.put('/:id', updateJob);
+router.put('/:id', validatorUpdateItems, updateJob);
 
 // delete  job
-router.delete('/:id', deleteJob);
+router.delete('/:id', validatorIdItem, deleteJob);
 
 module.exports = router;

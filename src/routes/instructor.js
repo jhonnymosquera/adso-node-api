@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const { createInstructor, getAllInstructors, getInstructorById, updateInstructor } = require('../controllers/instructor');
-const { validatorCreateItems, validatorUpdateItems } = require('../validators/instructorValidator');
+const { createInstructor, getAllInstructors, getInstructorById, updateInstructor, deleteInstructor } = require('../controllers/instructor');
+const { validatorCreateItems, validatorIdItem, validatorUpdateItems } = require('../validators/instructorValidator');
 
 const router = Router();
 
@@ -11,12 +11,12 @@ router.post('/', validatorCreateItems, createInstructor);
 router.get('/', getAllInstructors);
 
 // get  Instructor
-router.get('/:id', getInstructorById);
+router.get('/:id', validatorIdItem, getInstructorById);
 
 // update  Instructor
-router.put('/:id', updateInstructor);
+router.put('/:id', validatorUpdateItems, updateInstructor);
 
 // delete Instructor;
-router.delete('/:id', updateInstructor);
+router.delete('/:id', validatorIdItem, deleteInstructor);
 
 module.exports = router;

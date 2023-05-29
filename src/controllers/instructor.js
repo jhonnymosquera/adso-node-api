@@ -1,6 +1,6 @@
 const instructorSchema = require('../models/instructor');
 const { v4: uuidv4 } = require('uuid');
-const { matchedData } = require('express-validator');
+const { matchedData, body } = require('express-validator');
 const { handleHttpError } = require('../utils/handleError');
 
 // creat Instructor
@@ -9,7 +9,7 @@ const createInstructor = async (req, res) => {
 		const body = matchedData(req);
 		const data = await instructorSchema.create({ ...body, _id: uuidv4() });
 
-		res.send('Instructor creado de manera exitosa');
+		res.send({ message: 'Instructor creado de manera exitosa' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_CREATE_INSTRUCTOR');
 	}
@@ -28,9 +28,9 @@ const getAllInstructors = async (req, res) => {
 
 // get  Instructor
 const getInstructorById = async (req, res) => {
-	const { id } = req.params;
-
 	try {
+		const { id } = matchedData(req);
+
 		const data = await instructorSchema.findById(id);
 
 		res.send(data);
@@ -42,20 +42,11 @@ const getInstructorById = async (req, res) => {
 // update  Instructor
 const updateInstructor = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { name, email, avatar, transversal } = req.body;
+		const { id, ...body } = matchedData(req);
 
-		const dataUpdate = {
-			name,
-			email,
-			avatar,
-			transversal,
-			class: req.body.class,
-		};
+		const data = await instructorSchema.findOneAndUpdate(id, body);
 
-		const data = await instructorSchema.updateOne({ _id: id }, { $set: dataUpdate });
-
-		res.send(data);
+		res.send({ message: 'Instructor editado de manera correcta' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_UPDATE_INSTRUCTOR');
 	}
@@ -63,12 +54,12 @@ const updateInstructor = async (req, res) => {
 
 // delete Instructor;
 const deleteInstructor = async (req, res) => {
-	const { id } = req.params;
-
 	try {
-		const data = await instructorSchema.deleteOne({ _id: id });
+		const { id } = matchedData(req);
 
-		res.send(data);
+		const data = await instructorSchema.findByIdAndDelete(id);
+
+		res.send({ message: 'Instructor Eliminado de manera correcta' });
 	} catch (error) {
 		handleHttpError(res, 'ERROR_UPDATE_INSTRUCTOR');
 	}

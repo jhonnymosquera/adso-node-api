@@ -1,21 +1,21 @@
 const { Router } = require('express');
 const { createDay, getAllDays, getDayById, updateDay, deleteDay } = require('../controllers/day');
-const { validatorCreateItems } = require('../validators/dayValidator');
+const { validatorCreateItem, validatorIdItem, validatorUpdateItem } = require('../validators/dayValidator');
 const router = Router();
 
 // Create dat
-router.post('/', validatorCreateItems, createDay);
+router.post('/', validatorCreateItem, createDay);
 
 // Get all days
 router.get('/', getAllDays);
 
 // Get day by id
-router.get('/:id', getDayById);
+router.get('/:id', validatorIdItem, getDayById);
 
 // Update day
-router.put('/:id', updateDay);
+router.put('/:id', validatorUpdateItem, updateDay);
 
 // Delete day
-router.delete('/:id', deleteDay);
+router.delete('/:id', validatorIdItem, deleteDay);
 
 module.exports = router;

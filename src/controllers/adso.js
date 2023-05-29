@@ -2,6 +2,7 @@ const daySchema = require('../models/day');
 const instructorSchema = require('../models/instructor');
 const jobSchema = require('../models/job');
 const taskSchema = require('../models/task');
+const { handleHttpError } = require('../utils/handleError');
 
 const adso = async (req, res) => {
 	try {
@@ -33,7 +34,7 @@ const adso = async (req, res) => {
 
 		res.send(data);
 	} catch (error) {
-		res.send({ message: error });
+		handleHttpError(res, 'ERROR_GET_ADSO_DATA');
 	}
 };
 

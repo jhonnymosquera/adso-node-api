@@ -1,23 +1,22 @@
 const { Router } = require('express');
-const { createTask, getAllTasks, getTaskById, updateTask } = require('../controllers/task');
-const { deleteJob } = require('../controllers/job');
-const { validatorCreateItems } = require('../validators/taskValidator');
+const { createTask, getAllTasks, getTaskById, updateTask, deleteTask } = require('../controllers/task');
+const { validatorCreateItem, validatorUpdateItem, validatorIdItem } = require('../validators/taskValidator');
 
 const router = Router();
 
 // creat task
-router.post('/', validatorCreateItems, createTask);
+router.post('/', validatorCreateItem, createTask);
 
 // get all tasks
 router.get('/', getAllTasks);
 
 // get  task
-router.get('/:id', getTaskById);
+router.get('/:id', validatorIdItem, getTaskById);
 
 // update  task
-router.put('/:id', updateTask);
+router.put('/:id', validatorUpdateItem, updateTask);
 
 // delete  task
-router.delete('/:id', deleteJob);
+router.delete('/:id', validatorIdItem, deleteTask);
 
 module.exports = router;
