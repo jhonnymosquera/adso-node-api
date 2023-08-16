@@ -12,18 +12,18 @@ const createDay = async (req, res) => {
 
 		res.send({ message: 'El dia se ha guardado de manera exitosa' });
 	} catch (error) {
-		handleHttpError(res, 'ERROR_CREATE_DAY');
+		handleHttpError(res, `ERROR_CREATE_DAY - ${error.message}`);
 	}
 };
 
 // get all days
 const getAllDays = async (req, res) => {
 	try {
-		const data = await daySchema.find();
+		const data = await daySchema.findAllData();
 
 		res.send(data);
 	} catch (error) {
-		handleHttpError(res, 'ERROR_GET_ALL_DAY');
+		handleHttpError(res, `ERROR_GET_ALL_DAY - ${error.message}`);
 	}
 };
 
@@ -31,11 +31,11 @@ const getAllDays = async (req, res) => {
 const getDayById = async (req, res) => {
 	try {
 		const { id } = matchedData(req);
-		const data = await daySchema.findById(id);
+		const data = await daySchema.findOneData(id);
 
 		res.send(data);
 	} catch (error) {
-		handleHttpError(res, 'ERROR_GET_DAY_BY_ID');
+		handleHttpError(res, `ERROR_GET_DAY_BY_ID - ${error.message}`);
 	}
 };
 
@@ -48,7 +48,7 @@ const updateDay = async (req, res) => {
 
 		res.send({ message: 'Dia actualizado correctamente' });
 	} catch (error) {
-		handleHttpError(res, 'ERROR_UPDATE_DAY');
+		handleHttpError(res, `ERROR_UPDATE_DAY - ${error.message}`);
 	}
 };
 
@@ -61,7 +61,7 @@ const deleteDay = async (req, res) => {
 
 		res.send({ message: 'Dia eliminado correctamente' });
 	} catch (error) {
-		handleHttpError(res, 'ERROR_DELETE_DAY');
+		handleHttpError(res, `ERROR_DELETE_DAY - ${error.message}`);
 	}
 };
 

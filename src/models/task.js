@@ -15,4 +15,4 @@ const taskSchema = mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model('Taks', taskSchema);
+module.exports = mongoose.model('taks', taskSchema);

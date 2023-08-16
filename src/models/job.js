@@ -27,4 +27,4 @@ const jobSchema = mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model('Jobs', jobSchema);
+module.exports = mongoose.model('jobs', jobSchema);
