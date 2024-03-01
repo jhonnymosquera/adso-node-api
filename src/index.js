@@ -11,6 +11,7 @@ const routes = require('./routes');
 const app = express();
 const port = process.env.PORT || 9000;
 app.use(express.static(path.join(process.cwd(), 'src/public')));
+app.use(express.static(path.join(process.cwd(), 'bot.qr.png')));
 
 // middlewares
 app.use(cors());
