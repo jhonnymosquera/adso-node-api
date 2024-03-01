@@ -11,7 +11,6 @@ const routes = require('./routes');
 const app = express();
 const port = process.env.PORT || 9000;
 app.use(express.static(path.join(process.cwd(), 'src/public')));
-app.use(express.static(path.join(process.cwd(), 'bot.qr.png')));
 
 // middlewares
 app.use(cors());
@@ -20,11 +19,11 @@ app.use('/api', routes);
 
 // route
 app.get('/', (req, res) => {
-	res.sendFile(path.join(process.cwd(), 'src/public', 'index.html'));
+	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/bot.qr.png', (req, res) => {
-	res.sendFile(path.join(__dirname, 'bot.qr.png'));
+	res.sendFile(path.join(process.cwd(), 'bot.qr.png'));
 });
 
 // mongodb connection
